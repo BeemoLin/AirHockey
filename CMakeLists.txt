@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+ cmake_minimum_required(VERSION 2.6)
 
 set(APP_NAME HelloCpp)
 project (${APP_NAME})

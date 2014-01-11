@@ -214,3 +214,4 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 /doxygen/html
+/proj.win32/Debug.win32

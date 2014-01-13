@@ -32,3 +32,10 @@ bool Player::initWithTexture(Texture2D* aTexture)
 
 	return true;
 }
+
+void Player::onEnter()
+{
+	CCDirector* pDirector = CCDirector::sharedDirector();
+	pDirector->getEventDispatcher()->
+	CCSprite::onEnter();
+}

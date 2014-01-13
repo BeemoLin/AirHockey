@@ -1,5 +1,6 @@
 /* === 初始畫面 === */
 #include "GameLayer.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -48,10 +49,7 @@ bool GameLayer::init()
 		//////////////////////////////
 		// super init first
 		/////////////////////////////
-		if (!Layer::init())
-		{
-			return false;
-		}
+		CC_BREAK_IF(!Layer::init());
 
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		Point origin = Director::getInstance()->getVisibleOrigin();
@@ -80,44 +78,36 @@ bool GameLayer::init()
 		// add a label shows "Hello World"
 		// create and initialize a label
 
-		auto label = LabelTTF::create("Hello World", "Arial", 24);
+		//auto label = LabelTTF::create("Hello World", "Arial", 24);
 
-		// position the label on the center of the screen
-		label->setPosition(Point(origin.x + visibleSize.width / 2,
-			origin.y + visibleSize.height - label->getContentSize().height));
+		//// position the label on the center of the screen
+		//label->setPosition(Point(origin.x + visibleSize.width / 2,
+		//	origin.y + visibleSize.height - label->getContentSize().height));
 
-		// add the label as a child to this layer
-		this->addChild(label, 1);
-
-		// add "GameLayer" splash screen"
-		auto sprite = Sprite::create("HelloWorld.png");
-
-		// position the sprite on the center of the screen
-		sprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-
-		// add the sprite as a child to this layer
-		this->addChild(sprite, 0);
+		//// add the label as a child to this layer
+		//this->addChild(label, 1);
 
 		_player1Score = 0;
 		_player2Score = 0;
 
 		_screenSize = Director::sharedDirector()->getWinSize();
 		
-		Sprite *court = Sprite::create("court1.png");
+		Sprite* court = Sprite::create("court.png");
 		CC_BREAK_IF(!court);
-		court->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height * 0.5));
-		this->addChild(court);
+		court->setPosition(Point(_screenSize.width * 0.5, _screenSize.height * 0.5));
+		this->addChild(court, 0);
 
 		// 建立Player
 
-		CCTexture2D *pPlayerTexture = CCTextureCache::sharedTextureCache()->addImage("mallet.png");
+		Texture2D *pPlayerTexture = TextureCache::sharedTextureCache()->addImage("mallet.png");
 
 		_player1 = (Player*)Player::spriteWithTexture(pPlayerTexture);
 		CC_BREAK_IF(!_player1);
-		_player1->setPosition(ccp(_screenSize.width * 0.5, _player1->radius() * 2));
+		_player1->setPosition(ccp(_player1->radius() * 2, _screenSize.height * 0.5));
 		this->addChild(_player1, 0, kPlayer1Tag);
 
 		// this->schedule(schedule_selector(GameLayer::onUpdate));
+		bRet = true;
 	} while (0);
 
 	return bRet;

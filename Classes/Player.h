@@ -12,10 +12,8 @@ typedef enum tagPlayerState
 	kPlayerStateUngrabbed
 }PlayerState;
 
-class Player : public GameSprite
+class Player : public GameSprite, public EventDispatcher
 {
-private:
-	PlayerState m_state;
 public:
 	Player(void);
 	virtual ~Player(void);
@@ -25,6 +23,16 @@ public:
 
 	bool containsTouchLocation(Touch* touch);
 
+	virtual void onEnter() override;
+	virtual void onExit() override;
+	virtual std::string title() const override;
+	virtual std::string subtitle() const override;
+
 	static GameSprite* spriteWithTexture(Texture2D* aTexture);
+private:
+	PlayerState m_state;
+
+	EventListenerCustom* _listener;
+	EventListenerCustom* _listener2;
 };
 #endif

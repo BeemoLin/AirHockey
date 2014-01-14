@@ -33,9 +33,35 @@ bool Player::initWithTexture(Texture2D* aTexture)
 	return true;
 }
 
-void Player::onEnter()
+bool Player::onTouchBegan(Touch *touch, Event *event)
 {
-	CCDirector* pDirector = CCDirector::sharedDirector();
-	pDirector->getEventDispatcher()->
-	CCSprite::onEnter();
+	if (m_state != kPlayerStateUngrabbed)
+	{
+		return false;
+	}
+
+	if (!containsTouchLocation(touch))
+	{
+		return false;
+	}
+	return true;
+}
+
+void Player::onTouchMoved(Touch *touch, Event *event)
+{
+	this->setPosition(this->getPosition() + touch->getDelta());
+}
+
+void Player::onTouchEnded(Touch *touch, Event *event)
+{
+}
+
+void Player::touchDelegateRetain()
+{
+	this->retain();
+}
+
+void Player::touchDelegateRelease()
+{
+	this->release();
 }

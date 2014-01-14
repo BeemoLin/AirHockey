@@ -12,7 +12,7 @@ typedef enum tagPlayerState
 	kPlayerStateUngrabbed
 }PlayerState;
 
-class Player : public GameSprite, public EventDispatcher
+class Player : public GameSprite, public Layer
 {
 public:
 	Player(void);
@@ -23,16 +23,15 @@ public:
 
 	bool containsTouchLocation(Touch* touch);
 
-	virtual void onEnter() override;
-	virtual void onExit() override;
-	virtual std::string title() const override;
-	virtual std::string subtitle() const override;
+	// 複寫 從cocos2d::Layer繼承的觸控事件
+	virtual bool onTouchBegan(Touch* touch, Event* event) override;
+	virtual void onTouchMoved(Touch* touch, Event* event) override;
+	virtual void onTouchEnded(Touch* touch, Event* event) override;
+	virtual void touchDelegateRetain();
+	virtual void touchDelegateRelease();
 
 	static GameSprite* spriteWithTexture(Texture2D* aTexture);
 private:
 	PlayerState m_state;
-
-	EventListenerCustom* _listener;
-	EventListenerCustom* _listener2;
 };
 #endif
